@@ -1,0 +1,112 @@
+interface BaseEntity {
+    id: ID!
+    created: String!
+    updated: String!
+}
+
+
+type Author implements BaseEntity {
+    id: ID!
+    created: String!
+    updated: String!
+
+    firstName: String!
+    lastName: String!
+    pseudonym: String!
+}
+
+type Book implements BaseEntity {
+    id: ID!
+    created: String!
+    updated: String!
+
+    name: String!
+    description: String!
+    authors: [Author!]!
+}
+
+type Library implements BaseEntity {
+    id: ID!
+    created: String!
+    updated: String!
+
+    name: String!
+    address: String!
+    books: [Book!]!
+}
+
+
+input AuthorInput {
+    firstName: String!
+    lastName: String!
+    pseudonym: String!
+}
+
+input AuthorUpdate {
+    firstName: String
+    lastName: String
+    pseudonym: String
+}
+
+input BookInput {
+    name: String!
+    description: String!
+    authors: [ID!]!
+}
+
+input BookUpdate {
+    name: String
+    description: String
+    authors: [ID!]
+}
+
+type Query {
+    findAuthors: [Author]!
+    findAuthor(id: ID!): Author!
+
+    findBooks: [Book]!
+    findBook(id: ID!): Book!
+
+    findLibraries: [Library]!
+    findLibrary(id: ID!): Library!
+}
+
+input LibraryInput {
+    name: String!
+    address: String!
+}
+
+input LibraryUpdate {
+    name: String
+    address: String
+}
+
+type Mutation {
+    createAuthor(author: AuthorInput!): Author!
+    updateAuthor(id: ID!, author: AuthorUpdate!): Author!
+    deleteAuthor(id: ID!): String!
+
+    createLibrary(library: LibraryInput): Library!
+    updateLibrary(id: ID!, library: LibraryUpdate): Library!
+    deleteLibrary(id: ID!): String!
+    addBookInLibrary(libraryId: ID!, bookId: ID!): String
+
+    createBook(book: BookInput): Book!
+    updateBook(id: ID!, book: BookUpdate): Book!
+    deleteBook(id: ID!): String!
+
+
+
+    sendMessage(message: String!): String
+}
+
+type Subscription {
+    messages: String
+}
+
+schema {
+    query: Query,
+    mutation: Mutation,
+
+    subscription: Subscription
+}
