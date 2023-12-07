@@ -60,6 +60,16 @@ input BookUpdate {
     authors: [ID!]
 }
 
+input LibraryInput {
+    name: String!
+    address: String!
+}
+
+input LibraryUpdate {
+    name: String
+    address: String
+}
+
 type Query {
     findAuthors: [Author]!
     findAuthor(id: ID!): Author!
@@ -69,16 +79,6 @@ type Query {
 
     findLibraries: [Library]!
     findLibrary(id: ID!): Library!
-}
-
-input LibraryInput {
-    name: String!
-    address: String!
-}
-
-input LibraryUpdate {
-    name: String
-    address: String
 }
 
 type Mutation {
@@ -94,8 +94,6 @@ type Mutation {
     createBook(book: BookInput): Book!
     updateBook(id: ID!, book: BookUpdate): Book!
     deleteBook(id: ID!): String!
-
-
 
     sendMessage(message: String!): String
 }
